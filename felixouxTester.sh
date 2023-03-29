@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    main.sh                                            :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: fgeorgea <fgeorgea@student.s19.be>         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/29 18:36:34 by fgeorgea          #+#    #+#              #
-#    Updated: 2023/03/29 20:43:08 by fgeorgea         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 #!/bin/bash
 
 
@@ -34,9 +22,7 @@ then
 fi;
 
 grep -r "Created:" . >> header_check.txt;
-clear;
 grep -r "Updated:" . >> header_check.txt;
-clear;
 
 file="header_check.txt";
 clear;
@@ -50,6 +36,7 @@ while read -r Line; do
 			:
 		else
 			echo "KO -> HEADER NAME IS WRONG !";
+			rm -rf header_check.txt
 			exit 0;
 		fi;
 	fi;
