@@ -33,15 +33,8 @@ file="header_check.txt";
 clear;
 is_header_correct=0;
 
-if [ $# != 0 ];
-then
-	OLD_USER=$USER;
-	USER=$1;
-fi;
-
-
 while read -r Line; do
-	if [[ "$Line" == *"$USER"* || "$Line" == *"Marvin42"* ]];
+	if [[ "$Line" == *"$USER"* || "$Line" == *"Marvin42"* || "$Line" == *"$1"* || "$Line" == *"$2"* ]];
 	then
 		:
 	else
@@ -53,14 +46,12 @@ while read -r Line; do
 			echo "KO -> HEADER NAME MIGHT BE WRONG !";
 			echo $Line;
 			rm -rf header_check.txt;
-			USER=$OLD_USER;
 			exit 0;
 		fi;
 	fi;
 done < $file
 
 rm -rf header_check.txt
-USER=$OLD_USER;
 
 if [ $is_header_correct -gt 0 ];
 then
