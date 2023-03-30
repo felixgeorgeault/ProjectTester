@@ -21,8 +21,8 @@ then
 	exit 0;
 fi;
 
-grep -r "Created:" . >> header_check.txt;
-grep -r "Updated:" . >> header_check.txt;
+find . \( -name "*.c" -o -name "*.h" \) -exec grep "Created:" >> header_check.txt "{}" \;
+find . \( -name "*.c" -o -name "*.h" \) -exec grep "Updated:" >> header_check.txt "{}" \;
 
 file="header_check.txt";
 clear;
@@ -39,6 +39,8 @@ while read -r Line; do
 			is_header_correct=1;
 			echo "KO -> HEADER NAME MIGHT BE WRONG !";
 			echo $Line;
+			rm -rf header_check.txt
+			exit 0;
 		fi;
 	fi;
 done < $file
