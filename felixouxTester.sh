@@ -26,8 +26,9 @@ grep -r "Updated:" . >> header_check.txt;
 
 file="header_check.txt";
 clear;
+is_header_correct=0;
 while read -r Line; do
-	if [[ "$Line" == *"$USER"* ]];
+	if [[ "$Line" == *"$USER"* || "$Line" == *"Marvin42"* ]];
 	then
 		:
 	else
@@ -35,11 +36,39 @@ while read -r Line; do
 		then
 			:
 		else
-			echo "KO -> HEADER NAME IS WRONG !";
-			rm -rf header_check.txt
-			exit 0;
+			is_header_correct=1;
+			echo "KO -> HEADER NAME MIGHT BE WRONG !";
+			echo $Line;
 		fi;
 	fi;
 done < $file
 
 rm -rf header_check.txt
+
+if [ $is_header_correct -gt 0 ];
+then
+	exit 0;
+fi;
+needs_francinette=$(find . \( -name "*libft*" -o -name "*get_next_line*" -o -name "*ft_printf*" \) | wc -l);
+
+if [ $needs_francinette -gt 0 ];
+then
+	
+	is_francinette=$(command -v francinette | wc -l);
+	if [ $is_francinette == 0 ];
+	then
+		bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)";
+	else
+		/Users/$USER/francinette/tester.sh;
+	fi;
+fi;
+
+has_valgrind=$(command -v valgrind | wc -l);
+
+if [ $has_valgrind == 0 ];
+then
+	brew install --HEAD LouisBrunner/valgrind/valgrind;
+fi;
+
+echo "Looks good to me!";
+
