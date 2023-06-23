@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# TEST MERLIN
 
 # ------------------------- CHECK REMAINING FILES --------------------------
 files=$(find . \( -name "a.out" -o -name "push_swap" -o -name "fdf" -o -name "pipex" -o -name "so_long" -o -name "minitalk" -o -name "fractol" -o -name "minishell" \) | wc -l);
